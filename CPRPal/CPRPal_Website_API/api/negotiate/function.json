@@ -1,0 +1,23 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get"]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "webPubSubConnection",
+      "name": "connection",
+      "hub": "sensordata",
+      "direction": "in"
+    }
+  ],
+  "scriptFile": "index.js"
+}

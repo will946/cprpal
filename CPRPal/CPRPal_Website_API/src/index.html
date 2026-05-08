@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPR Sensor Dashboard</title>
+
+  <style>
+    :root {
+      --bg1: #0f172a;
+      --bg2: #111827;
+      --panel: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.12);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --radius: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.2), transparent),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .left-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .right-panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      min-height: 260px;
+    }
+
+    .device-img {
+      max-width: 90%;
+      max-height: 240px;
+      object-fit: contain;
+    }
+
+    .connection {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    h1, h2 {
+      margin: 0;
+    }
+
+    .section-title {
+      margin: 28px 0 14px 0;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .status-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .status-main {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .status-good { color: var(--green); }
+    .status-warn { color: var(--yellow); }
+    .status-bad { color: var(--red); }
+
+    .info {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      min-height: 90px;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .value {
+      font-size: 1.4rem;
+      font-weight: bold;
+      word-break: break-word;
+    }
+
+    .image-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      min-height: 200px;
+      margin-top: 20px;
+    }
+
+    .bottom-img {
+      max-width: 90%;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 800px) {
+      .top {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="top">
+    <div class="left-panel">
+
+    <!-- Connection Message at Top
+      <div class="connection">
+        <div class="dot" id="connectionDot"></div>
+        <span>Connection: <span id="connectionStatus">Connecting...</span></span>
+      </div>
+    -->
+      
+
+      <h1>CPR Sensor Training Dashboard</h1>
+
+      <div class="status-box">
+        <div id="status" class="status-main">Waiting...</div>
+        <div class="info">
+          Device: <span id="deviceId">--</span><br>
+          Last Update: <span id="timestamp">--</span><br>
+          Mode: <span id="mode">--</span><br>
+          Session Type: <span id="sessionType">--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <img src="cpr-device-img.png" class="device-img" alt="CPR Device">
+    </div>
+  </div>
+
+  <h2 class="section-title">Live / Legacy Data</h2>
+  <div class="grid">
+    <div class="card"><div class="label">IMU X</div><div id="imuX" class="value">--</div></div>
+    <div class="card"><div class="label">IMU Y</div><div id="imuY" class="value">--</div></div>
+    <div class="card"><div class="label">IMU Z</div><div id="imuZ" class="value">--</div></div>
+    <div class="card"><div class="label">Rate</div><div id="compressionRate" class="value">--</div></div>
+    <div class="card"><div class="label">Depth</div><div id="compressionDepth" class="value">--</div></div>
+    <div class="card"><div class="label">PPG</div><div id="ppg" class="value">--</div></div>
+    <div class="card"><div class="label">Recoil</div><div id="recoil" class="value">--</div></div>
+  </div>
+
+  <h2 class="section-title">Training Session Summary</h2>
+  <div class="grid">
+    <div class="card"><div class="label">Samples</div><div id="sampleCount" class="value">--</div></div>
+    <div class="card"><div class="label">Session Duration (ms)</div><div id="sessionDurationMs" class="value">--</div></div>
+    <div class="card"><div class="label">Avg Weight</div><div id="avgWeight" class="value">--</div></div>
+    <div class="card"><div class="label">Avg Max Weight</div><div id="avgMaxWeight" class="value">--</div></div>
+    <div class="card"><div class="label">Avg Compression Rate</div><div id="avgCompRate" class="value">--</div></div>
+    <div class="card"><div class="label">Avg PPG</div><div id="avgPPG" class="value">--</div></div>
+    <div class="card"><div class="label">Avg BPM</div><div id="avgBPM" class="value">--</div></div>
+    <div class="card"><div class="label">Avg Pitch</div><div id="avgPitch" class="value">--</div></div>
+    <div class="card"><div class="label">Avg Roll</div><div id="avgRoll" class="value">--</div></div>
+  </div>
+
+  <div class="image-box">
+    <img src="website-qr.png" alt="Website QR Code" class="bottom-img">
+  </div>
+
+</div>
+
+<script>
+const els = {
+  imuX: document.getElementById("imuX"),
+  imuY: document.getElementById("imuY"),
+  imuZ: document.getElementById("imuZ"),
+  compressionRate: document.getElementById("compressionRate"),
+  compressionDepth: document.getElementById("compressionDepth"),
+  ppg: document.getElementById("ppg"),
+  recoil: document.getElementById("recoil"),
+
+  sampleCount: document.getElementById("sampleCount"),
+  sessionDurationMs: document.getElementById("sessionDurationMs"),
+  avgWeight: document.getElementById("avgWeight"),
+  avgMaxWeight: document.getElementById("avgMaxWeight"),
+  avgCompRate: document.getElementById("avgCompRate"),
+  avgPPG: document.getElementById("avgPPG"),
+  avgBPM: document.getElementById("avgBPM"),
+  avgPitch: document.getElementById("avgPitch"),
+  avgRoll: document.getElementById("avgRoll"),
+
+  status: document.getElementById("status"),
+  deviceId: document.getElementById("deviceId"),
+  timestamp: document.getElementById("timestamp"),
+  mode: document.getElementById("mode"),
+  sessionType: document.getElementById("sessionType"),
+
+  connectionStatus: document.getElementById("connectionStatus"),
+  connectionDot: document.getElementById("connectionDot")
+};
+
+function formatValue(value, digits = 2) {
+  if (value === null || value === undefined) return "--";
+  if (typeof value === "number") return Number(value).toFixed(digits);
+  return value;
+}
+
+function setConnectionState(state) {
+  if (els.connectionStatus) els.connectionStatus.textContent = state;
+  if (!els.connectionDot) return;
+
+  if (state === "Connected") {
+    els.connectionDot.style.background = "#22c55e";
+  } else if (state === "Error" || state === "Disconnected") {
+    els.connectionDot.style.background = "#ef4444";
+  } else {
+    els.connectionDot.style.background = "#f59e0b";
+  }
+}
+
+function setStatusText(statusText) {
+  els.status.textContent = statusText || "Waiting...";
+  els.status.classList.remove("status-good", "status-warn", "status-bad");
+
+  const s = (statusText || "").toLowerCase();
+  if (s.includes("good")) els.status.classList.add("status-good");
+  else if (s.includes("warn")) els.status.classList.add("status-warn");
+  else if (s.includes("bad")) els.status.classList.add("status-bad");
+}
+
+function updateUI(data) {
+  console.log("Received sensor data:", data);
+
+  // Always update live/legacy cards
+  els.imuX.textContent = formatValue(data.imuX);
+  els.imuY.textContent = formatValue(data.imuY);
+  els.imuZ.textContent = formatValue(data.imuZ);
+  els.compressionRate.textContent = formatValue(data.compressionRate);
+  els.compressionDepth.textContent = formatValue(data.compressionDepth);
+  els.ppg.textContent = formatValue(data.ppg, 0);
+  els.recoil.textContent = data.recoil ?? "--";
+
+  // Top info
+  els.deviceId.textContent = data.deviceId ?? "--";
+  els.timestamp.textContent = data.timestamp ?? "--";
+  els.mode.textContent = data.mode ?? "--";
+  els.sessionType.textContent = data.sessionType ?? "--";
+  setStatusText(data.status || "Live");
+
+  // If this is the end-of-training summary packet, map the incoming fields
+  if (data.sessionType === "summary") {
+    els.sampleCount.textContent = data.sampleCount ?? "--";
+    els.sessionDurationMs.textContent = data.sessionDurationMs ?? "--";
+
+    els.avgWeight.textContent = formatValue(data.compressionDepth);
+    els.avgMaxWeight.textContent = "--";   // not currently sent by ESP32
+    els.avgCompRate.textContent = formatValue(data.compressionRate);
+    els.avgPPG.textContent = formatValue(data.ppg, 0);
+    els.avgBPM.textContent = "--";         // not currently sent by ESP32
+    els.avgPitch.textContent = formatValue(data.imuZ);
+    els.avgRoll.textContent = formatValue(data.imuY);
+  }
+}
+
+async function connectWebSocket() {
+  try {
+    setConnectionState("Connecting...");
+
+    const res = await fetch("/api/negotiate");
+    const info = await res.json();
+
+    const ws = new WebSocket(info.url);
+
+    ws.onopen = () => setConnectionState("Connected");
+
+    ws.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        updateUI(data);
+      } catch (err) {
+        console.error("Failed to parse WebSocket message:", err, e.data);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error("WebSocket error:", err);
+      setConnectionState("Error");
+    };
+
+    ws.onclose = () => {
+      setConnectionState("Disconnected");
+      setTimeout(connectWebSocket, 3000);
+    };
+
+  } catch (err) {
+    console.error("Connection setup failed:", err);
+    setConnectionState("Retrying...");
+    setTimeout(connectWebSocket, 3000);
+  }
+}
+
+connectWebSocket();
+</script>
