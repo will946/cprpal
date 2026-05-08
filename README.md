@@ -36,6 +36,8 @@ The device is placed between the rescuer's hands and the patient's sternum durin
 
 The final prototype measures 4.7" x 4.7" x 2.4" and runs for over 15 hours on four AA batteries at a normal operating draw of approximately 155 mA.
 
+CPRPal Demo: https://drive.google.com/file/d/1d1auYhc-_jhG4WK9BlywpUfyi4_rIxLO/view?usp=sharing
+
 | Rendering | Final Build |
 |---|---|
 | ![CPRPal Rendering](CPRPalRendering.png) | ![CPRPal Final Build](CPRPal_FinalBuild.png) | ![Exploded View](Component_Implementation.png)
