@@ -38,9 +38,9 @@ The final prototype measures 4.7" x 4.7" x 2.4" and runs for over 15 hours on fo
 
 | Rendering | Final Build |
 |---|---|
-| ![CPRPal Rendering](CPRPalRendering.png) | ![CPRPal Final Build](CPRPal_FinalBuild.png) |
+| ![CPRPal Rendering](CPRPalRendering.png) | ![CPRPal Final Build](CPRPal_FinalBuild.png) | ![Exploded View](Component_Implementation.png) |
 
-[Exploded Assembly View]<img width="1398" height="464" alt="Component_Implementation" src="https://github.com/user-attachments/assets/04874c0b-26c0-4c79-bfdb-e14f0eed4214" />
+
 
 ---
 
