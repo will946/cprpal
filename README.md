@@ -34,7 +34,7 @@ The device is placed between the rescuer's hands and the patient's sternum durin
 
 **Training Mode** connects to Wi-Fi, runs a 2-minute guided session, and uploads averaged session metrics to an Azure-hosted cloud dashboard for review.
 
-The final prototype measures 4.7" x 4.7" x 2.4" and runs for over 15 hours on four AA batteries at a normal operating draw of approximately 155 mA.
+The final prototype measures 4.5" x 4.5" x 2.25" and runs for over 15 hours on four AA batteries at a normal operating draw of approximately 155 mA.
 
 CPRPal Demo: https://drive.google.com/file/d/1d1auYhc-_jhG4WK9BlywpUfyi4_rIxLO/view?usp=sharing
 (Note video isn't perfectly sync with operation)
